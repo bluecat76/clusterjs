@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+		<title>Cluster</title>
+		<style type="text/css" media="screen"><!--
+			body {
+				font-family: "Lucida Grande", Arial, sans-serif;
+				font-size: 16px;
+			}
+			#container {
+				width: 1000px;
+				height: 700px;
+				background-color: orange;
+				margin: 10px auto;
+			}
+			#cluster {
+				position: relative;
+				width: 800px;
+				height: 600px; 
+				border: solid 1px #999;
+				margin: 0 auto;
+				padding: 3px;
+				background-color: white;
+			}
+			h1 {
+				color: #778fbd;
+				font-size: 20px;
+				font-weight: bold;
+				line-height: 32px;
+				margin: 0 95px;
+			}
+			a {
+				color: #666;
+				text-decoration: underline;
+			}
+			.pt {
+				position: absolute;
+				border: 1px solid red;
+				background-color: orange;
+				width: 5px;
+				height: 5px;
+				border-radius: 3px;
+			}
+		--></style>
+	</head>
+
+	<body>
+		<div id="container">
+			<h1>cluster check</h1>
+			<div id="cluster">
+			</div>
+		</div>
+	</body>
+	
+	<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+	<script src="cluster.js"></script>
+	<script type="text/javascript">
+		$(function() {
+				$("#cluster").cluster({ count: 200, speed: 5 });
+			});
+	</script>
+
+</html>
