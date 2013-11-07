@@ -6,9 +6,9 @@
 			return parseInt(number, 10) + "px";
 		};
 
-	function Point($elem, x, y, dx, dy)
+	function Point(id, x, y, dx, dy)
 	{
-		this.$elem = $elem;
+		this.id = id;
 		this.x = x;
 		this.y = y;
 		this.dx = dx;
@@ -28,8 +28,7 @@
 					// create Points array
 					for(index = 0; index < count; index++)
 					{
-						points.push(new Point(
-								$('<div class="pt" id="pt' + index + '">').appendTo($cont),
+						points.push(new Point("pt" + index,
 								Math.random() * width, 
 								Math.random() * height, 
 								(0.5 - Math.random()) * speed,
@@ -64,15 +63,28 @@
 								point.y = -point.y;
 							}
 														
-							point.$elem.css({ left: px(point.x), top: px(point.y) });
+							point.$elem;
 						});
-					window.setTimeout(function() { move(); }, 50);
+				};
+			
+			draw = function() {
+					$("div", $cont).remove();
+					$.each(points, function(index, point) {
+							$('<div class="pt" id="' + point.id + '">')
+								.css({ left: px(point.x), top: px(point.y) })
+								.appendTo($cont);
+						});
+				};
+			
+			run = function() {
+					draw();
+					move();
+					window.setTimeout(function() { run(); }, 30);
 				};
 		
 		create(options.count, options.speed);
-		move();
-	}; 
-
+		run();
+	};
 
 	$.fn.cluster = function(param)
 	{
