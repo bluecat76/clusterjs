@@ -8,7 +8,7 @@
 		this.size = size;
 		this.dx = dx;
 		this.dy = dy;
-	};
+	}
 	
 	function SortableX(point, distance)
 	{
@@ -67,14 +67,13 @@
 				}
 				return result;
 			};
-	};
+	}
 	
 	function PointsCluster(points, distance)
 	{
 		var start = null,
 			addPoint = function(element) {
-				var item = start,
-					steps = 0;
+				var item = start;
 				
 				if (!item)
 				{
@@ -107,7 +106,6 @@
 						}
 						item = item.prev;
 					}
-					steps ++;
 				}
 				// this would be an error condition!
 				alert("does not happen, or does it?");
@@ -122,12 +120,11 @@
 				addPoint(new SortableX(point, distance));
 			});
 		
-	};
+	}
 	
 	function Cluster(container, options)
 	{
-		var _this = this,
-			$cont = $(container),
+		var $cont = $(container),
 			width = $cont.width(),
 			height = $cont.height(),
 			
@@ -140,7 +137,7 @@
 							speed = 2 * max_speed,
 							ptlist = [];
 					// create Points array
-					for(index = 0; index < count; index++)
+					for(index = 0; index < count; index+=1)
 					{
 						ptlist.push(new Point("pt" + index,
 								Math.random() * width, 
@@ -178,23 +175,21 @@
 								point.dy *= -1;
 								point.y = -point.y;
 							}
-														
-							point.$elem;
 						});
-				};
+				},
 			
 			cluster = function(ptlist) {
 					var blob = new PointsCluster(ptlist, options.distance);
 					return blob.getPoints();
-				};
+				},
 			
 			clear = function() {
 					$("div", $cont).remove();
-				};
+				},
 			
 			draw = function(ptlist) {
 					$.each(ptlist, function(index, point) {
-							var ptsize = point.size;
+							var ptsize = point.size,
 								size = 2 * ptsize + 1;
 							$('<div class="pt" id="' + point.id + '">')
 								.css({
@@ -217,7 +212,7 @@
 				};
 		
 		run();
-	};
+	}
 
 	$.fn.cluster = function(param)
 	{
@@ -232,4 +227,4 @@
 		});
 	};
 	
-})(jQuery, this);
+}(jQuery, this));
