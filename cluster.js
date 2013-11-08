@@ -1,15 +1,5 @@
 (function($, window){
 
-	// helper function
-	var px = function(number)
-		{
-			return parseInt(number, 10) + "px";
-		},
-		sq = function(num)
-		{
-			return (num * num);
-		};
-
 	function Point(id, x, y, size, dx, dy)
 	{
 		this.id = id;
@@ -22,9 +12,12 @@
 	
 	function SortableX(point, distance)
 	{
-		var sqdist = sq(distance),
-			cluster = [point],
-				
+		var cluster = [point],
+			
+			sq = function(num) {
+					return (num * num);
+				},
+			
 			getClusterPoint = function(ptarray) {
 				// cluster points to one
 				var id= "cl",
@@ -41,7 +34,9 @@
 					});
 
 				return new Point(id, x_sum/num, y_sum/num, size);
-			};
+			},
+			
+			sqdist = sq(distance);
 
 		this.value = point;
 		this.prev = null;
@@ -136,8 +131,13 @@
 			width = $cont.width(),
 			height = $cont.height(),
 			
-			create = function(count, speed, size) {
+			px = function(number) {
+					return parseInt(number, 10) + "px";
+				},
+			
+			create = function(count, max_speed, size) {
 					var index,
+							speed = 2 * max_speed,
 							ptlist = [];
 					// create Points array
 					for(index = 0; index < count; index++)
@@ -192,7 +192,7 @@
 					$("div", $cont).remove();
 				};
 			
-			draw = function(ptlist, color) {
+			draw = function(ptlist) {
 					$.each(ptlist, function(index, point) {
 							var ptsize = point.size;
 								size = 2 * ptsize + 1;
@@ -200,7 +200,6 @@
 								.css({
 										left: px(point.x - ptsize), 
 										top: px(point.y - ptsize), 
-										"background-color": color, 
 										"width": px(size),
 										"height": px(size)
 									})
@@ -212,8 +211,7 @@
 			
 			run = function() {
 					clear();
-//					draw(points, "green");
-					draw(cluster(points), "red");
+					draw(cluster(points));
 					move(points);
 					window.setTimeout(function() { run(); }, 40);
 				};
